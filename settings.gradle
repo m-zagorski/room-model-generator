@@ -1,0 +1,1 @@
+include ':app', ':room-model-generator-annotations', ':room-model-generator-processor', ':appkotlin'
