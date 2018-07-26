@@ -125,7 +125,7 @@ class RoomModelProcessor : AbstractProcessor() {
     private fun entityFunctionGenerator(annotatedClass: Element, classType: TypeSpec, classPackage: String): FunSpec {
         val fieldsIn = ElementFilter.fieldsIn(annotatedClass.enclosedElements)
         return FunSpec.builder("entity")
-                .receiver(annotatedClass.javaToKotlinType())
+                .receiver(annotatedClass.asType().asTypeName())
                 .addAnnotation(AnnotationSpec.builder(JvmName::class)
                         .addMember("%S", "${annotatedClass.simpleName}-entity").build())
                 .addStatement("return %T(${fieldsIn.joinToString(separator = ", ") { "%L" }})", ClassName.bestGuess("$classPackage.${classType.name}"), *fieldsIn.map { it.simpleName.toString() }.toTypedArray())
@@ -135,7 +135,7 @@ class RoomModelProcessor : AbstractProcessor() {
 
     private fun listOfModelsToEntities(annotatedClass: Element): FunSpec {
         return FunSpec.builder("entities")
-                .receiver(ParameterizedTypeName.get(List::class.asClassName(), annotatedClass.javaToKotlinType()))
+                .receiver(ParameterizedTypeName.get(List::class.asClassName(), annotatedClass.asType().asTypeName()))
                 .addAnnotation(AnnotationSpec.builder(JvmName::class)
                         .addMember("%S", "${annotatedClass.simpleName}-entities").build())
                 .addStatement("return map { it.entity() }")

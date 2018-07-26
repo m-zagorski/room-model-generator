@@ -37,17 +37,30 @@ data class Cow(val id: String)
 data class Entities(val cow:Cow)
 ```
 
+Eventually if you are using java:
+
+```java
+@RoomEntities
+public class JavaEntities {
+    private Cow cow;
+}
+```
+
 Processor will generate automatically `CowRoom` class with `Room` annotations also extension proper extension methods are going to be 
 created 
 
 ```kotlin
 fun Cow.entity() = CowRoom(id)
 
-fun CowRoom.model() = Cow(id))
-
 fun List<Cow>.entities() = map { it.entity() }
 
 fun List<CowRoom>.models() = map { it.model() }
+```
+
+Also there is generated method `model()` so you can transform single room entity straight to model
+
+```kotlin
+val cow: Cow = Cow("id").entity().model()
 ```
 
 ## Supported annotations
@@ -119,7 +132,7 @@ but instead its name (this will be addressed in future releases). So you have to
 
 ```kotlin
 @RoomEntity
-@RoomForeignKeys([(RoomForeignKey("Cow", ["cowId"], ["Id"]))
+@RoomForeignKeys([(RoomForeignKey("Cow", ["id"], ["cowId"]))])
 data class User(val id: String, val cowId: String)
 ```
 
@@ -129,7 +142,7 @@ Actually `indexes` are not supported. They will be supported in upcoming release
 
 ## Download
 
-Add as gradle dependency:
+Add as gradle dependency straight from jCenter:
 In your non-android module all you need is:
 ```gradle
 compileOnly "com.zagorski:room-model-generator-annotations:$roomGeneratorVersion"
@@ -139,6 +152,8 @@ And in your android, assuming you are using kotlin:
 compileOnly "com.zagorski:room-model-generator-annotations:$roomGeneratorVersion"
 kapt "com.zagorski:room-model-generator-processor:$roomGeneratorVersion"
 ```
+
+For current version check badge at the top or github releases tab.
 
 # License
 

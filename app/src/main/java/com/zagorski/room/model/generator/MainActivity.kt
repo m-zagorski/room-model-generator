@@ -21,3 +21,4 @@ class MainActivity : AppCompatActivity() {
 data class RoomEntities(val firstEntity: FirstEntity,
                         val secondEntity: SecondEntity,
                         val cow: Cow)
+

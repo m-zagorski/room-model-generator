@@ -3,9 +3,7 @@ package com.zagorski.java
 import com.zagorski.room.model.generator.annotations.*
 
 @RoomEntity
-@RoomForeignKeys([
-    (RoomForeignKey("FirstEntity", ["uid"], ["ownerId"])),
-    RoomForeignKey("FirstEntity", ["bcd"], ["ohNo"])])
+@RoomForeignKeys([(RoomForeignKey("FirstEntity", ["uid"], ["ownerId"]))])
 data class Cow(@RoomPrimaryKey val name: String,
                @RoomName("srypeHype") val type: String,
                @RoomName("meh") val size: Long,
