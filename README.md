@@ -46,7 +46,7 @@ public class JavaEntities {
 }
 ```
 
-Processor will generate automatically `CowRoom` class with `Room` annotations also extension proper extension methods are going to be 
+Processor will generate automatically `CowRoom` class with `Room` annotations and proper extension methods are going to be 
 created 
 
 ```kotlin
@@ -57,7 +57,8 @@ fun List<Cow>.entities() = map { it.entity() }
 fun List<CowRoom>.models() = map { it.model() }
 ```
 
-Also there is generated method `model()` so you can transform single room entity straight to model
+Also generated class contains method 'model()' which allows you to transform single entity straight to model:
+
 
 ```kotlin
 val cow: Cow = Cow("id").entity().model()
